@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>京都線香之旅 ・ 五六日遊</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Shippori+Mincho:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1f1410;
+    --paper:#f5ecdc;
+    --paper-2:#ede0c7;
+    --crimson:#7a1f1f;
+    --crimson-deep:#5a1414;
+    --gold:#c8a35c;
+    --gold-soft:#e7c98a;
+    --shadow:rgba(40,20,10,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{scroll-behavior:smooth}
+  body{
+    font-family:"Shippori Mincho","Noto Serif TC",serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 20% 10%, rgba(200,163,92,.12), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(122,31,31,.08), transparent 50%),
+      repeating-linear-gradient(45deg, rgba(122,31,31,.025) 0 2px, transparent 2px 8px),
+      var(--paper);
+    line-height:1.7;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    position:relative;
+    padding:80px 24px 60px;
+    text-align:center;
+    background:
+      linear-gradient(180deg, rgba(245,236,220,0) 0%, var(--paper) 100%),
+      url("https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=2000&q=80") center/cover;
+    color:var(--paper);
+    overflow:hidden;
+  }
+  header::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(20,10,5,.55), rgba(20,10,5,.35) 60%, var(--paper) 100%);
+  }
+  header > *{position:relative;z-index:1}
+  .stamp{
+    display:inline-block;background:var(--crimson);color:var(--paper);
+    padding:6px 14px;font-size:14px;letter-spacing:.5em;
+    border:2px solid var(--gold-soft);border-radius:2px;
+    margin-bottom:18px;
+  }
+  h1.title{
+    font-family:"Shippori Mincho",serif;
+    font-size:clamp(48px,8vw,96px);font-weight:800;
+    letter-spacing:.15em;color:#fff5e1;
+    text-shadow:0 4px 20px rgba(0,0,0,.5);
+    margin-bottom:8px;
+  }
+  .subtitle{
+    font-size:clamp(16px,2.5vw,22px);
+    letter-spacing:.4em;color:var(--gold-soft);
+    margin-bottom:36px;
+  }
+  .tagline{
+    max-width:640px;margin:0 auto;
+    font-size:clamp(14px,1.6vw,17px);
+    color:#f1e4ca;line-height:2;letter-spacing:.1em;
+  }
+
+  /* ===== SECTION ===== */
+  section{padding:80px 24px;max-width:1200px;margin:0 auto}
+  .section-title{
+    text-align:center;font-size:clamp(28px,4vw,40px);
+    font-weight:700;color:var(--crimson-deep);
+    letter-spacing:.3em;margin-bottom:8px;position:relative;
+  }
+  .section-sub{
+    text-align:center;font-size:14px;letter-spacing:.4em;
+    color:var(--gold);margin-bottom:48px;
+  }
+  .divider{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    margin:0 auto 48px;max-width:280px;
+  }
+  .divider::before,.divider::after{
+    content:"";flex:1;height:1px;background:var(--gold);
+  }
+  .divider span{color:var(--gold);font-size:18px}
+
+  /* ===== INTRO ===== */
+  .intro{
+    background:rgba(255,255,255,.4);
+    border:1px solid rgba(200,163,92,.4);
+    border-radius:4px;padding:48px;
+    box-shadow:0 8px 24px var(--shadow);
+    text-align:center;
+  }
+  .intro p{font-size:17px;letter-spacing:.08em;color:#3a2418;max-width:720px;margin:0 auto 16px}
+  .intro-features{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:24px;margin-top:36px;
+  }
+  .feature{padding:16px}
+  .feature-icon{font-size:28px;color:var(--crimson);margin-bottom:8px}
+  .feature-title{font-weight:700;color:var(--crimson-deep);margin-bottom:4px;letter-spacing:.1em}
+  .feature-desc{font-size:13px;color:#5a3a28;letter-spacing:.05em}
+
+  /* ===== ITINERARY ===== */
+  .days{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+  }
+  .day-card{
+    background:#fff8ea;
+    border:1px solid var(--gold-soft);
+    border-radius:6px;overflow:hidden;
+    box-shadow:0 6px 18px var(--shadow);
+    transition:transform .3s ease, box-shadow .3s ease;
+    display:flex;flex-direction:column;
+  }
+  .day-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px var(--shadow)}
+  .day-header{
+    background:var(--crimson);color:var(--gold-soft);
+    padding:14px 18px;text-align:center;
+    font-weight:700;letter-spacing:.4em;font-size:18px;
+    border-bottom:2px solid var(--gold);
+  }
+  .day-area{
+    text-align:center;padding:14px 18px 0;
+    color:var(--crimson-deep);font-weight:600;letter-spacing:.2em;
+  }
+  .day-image{
+    height:200px;margin:14px 18px;border-radius:4px;
+    background-size:cover;background-position:center;
+    background-color:#3a2818;
+    box-shadow:inset 0 0 0 1px var(--gold-soft), 0 4px 14px rgba(40,20,10,.25);
+    border:1px solid var(--gold-soft);
+    image-rendering:auto;
+  }
+  .day-theme{
+    text-align:center;padding:0 18px 14px;
+    color:#5a3a28;font-size:14px;letter-spacing:.15em;
+  }
+  .day-stores{
+    list-style:none;padding:0 18px 20px;flex:1;
+  }
+  .day-stores li{
+    padding:8px 0;border-top:1px dashed var(--gold-soft);
+    color:#3a2418;font-size:14px;letter-spacing:.1em;
+    display:flex;align-items:center;gap:8px;
+  }
+  .day-stores li::before{
+    content:"●";color:var(--crimson);font-size:8px;
+  }
+
+  /* ===== STORES ===== */
+  .stores-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+  }
+  .store-card{
+    position:relative;
+    background:#fff8ea;
+    border:1px solid var(--gold-soft);
+    border-radius:6px;
+    padding:24px 20px 20px;
+    text-decoration:none;color:inherit;
+    box-shadow:0 6px 18px var(--shadow);
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    display:flex;flex-direction:column;
+  }
+  .store-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 32px rgba(122,31,31,.25);
+    border-color:var(--crimson);
+  }
+  .store-num{
+    position:absolute;top:-14px;left:20px;
+    width:32px;height:32px;border-radius:50%;
+    background:var(--crimson);color:var(--gold-soft);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;
+    border:2px solid var(--gold-soft);
+  }
+  .store-name{
+    font-size:20px;font-weight:700;color:var(--crimson-deep);
+    margin-bottom:4px;letter-spacing:.08em;
+  }
+  .store-name-en{
+    font-size:13px;color:var(--gold);letter-spacing:.15em;
+    margin-bottom:14px;font-style:italic;
+  }
+  .store-desc{
+    font-size:14px;color:#3a2418;letter-spacing:.05em;
+    flex:1;margin-bottom:16px;line-height:1.8;
+  }
+  .store-link{
+    display:inline-flex;align-items:center;gap:6px;
+    color:var(--crimson);font-weight:600;font-size:13px;
+    letter-spacing:.1em;border-top:1px dashed var(--gold-soft);
+    padding-top:12px;
+  }
+  .store-link::after{
+    content:"→";transition:transform .3s ease;
+  }
+  .store-card:hover .store-link::after{transform:translateX(4px)}
+  .store-day-tag{
+    display:inline-block;font-size:11px;
+    background:var(--gold-soft);color:var(--crimson-deep);
+    padding:2px 8px;border-radius:2px;
+    margin-bottom:10px;letter-spacing:.2em;
+  }
+
+  /* ===== POSTER ===== */
+  .poster-section{text-align:center}
+  .poster-frame{
+    display:inline-block;padding:12px;
+    background:#fff8ea;border:1px solid var(--gold);
+    box-shadow:0 12px 32px var(--shadow);
+    max-width:520px;width:100%;
+  }
+  .poster-frame img{width:100%;display:block;border:1px solid rgba(122,31,31,.2)}
+
+  /* ===== FOOTER ===== */
+  footer{
+    margin-top:80px;padding:40px 24px;
+    background:var(--crimson-deep);color:var(--gold-soft);
+    text-align:center;letter-spacing:.2em;font-size:13px;
+  }
+  footer .seal{
+    display:inline-block;width:60px;height:60px;
+    border:2px solid var(--gold);border-radius:50%;
+    line-height:56px;font-weight:700;color:var(--gold);
+    margin-bottom:16px;font-size:20px;
+  }
+
+  @media (max-width:600px){
+    .intro{padding:28px}
+    .day-image{height:120px}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <span class="stamp">京 都</span>
+  <h1 class="title">京都線香之旅</h1>
+  <p class="subtitle">五 六 日 遊</p>
+  <p class="tagline">一場尋香之旅，遇見京都的傳統與美學<br>探訪古都香氣，遇見百年傳承</p>
+</header>
+
+<!-- INTRO -->
+<section id="intro">
+  <h2 class="section-title">尋 香 之 旅</h2>
+  <p class="section-sub">A JOURNEY OF FRAGRANCE</p>
+  <div class="intro">
+    <p>從老舖職人的堅持，到當世代的創新香氛，<br>在京都的街巷之中，發現京都獨有的香氣文化。</p>
+    <div class="intro-features">
+      <div class="feature">
+        <div class="feature-icon">❀</div>
+        <div class="feature-title">老字號香店巡禮</div>
+        <div class="feature-desc">百年老舖一次走訪</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">❀</div>
+        <div class="feature-title">傳統工藝體驗</div>
+        <div class="feature-desc">親身感受香道之美</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">❀</div>
+        <div class="feature-title">京都特色伴手禮</div>
+        <div class="feature-desc">精選香品帶回家</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">❀</div>
+        <div class="feature-title">完整六日行程</div>
+        <div class="feature-desc">深度探索古都</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section id="itinerary">
+  <h2 class="section-title">六 日 行 程 總 覽</h2>
+  <p class="section-sub">SIX DAYS ITINERARY</p>
+  <div class="days">
+
+    <div class="day-card">
+      <div class="day-header">DAY 1</div>
+      <div class="day-area">【御所・烏丸區】</div>
+      <div class="day-image" style="background-image:url('images/day1.png')"></div>
+      <div class="day-theme">京都香文化核心區</div>
+      <ul class="day-stores">
+        <li>松榮堂 京都本店</li>
+        <li>鳩居堂</li>
+        <li>石黒香舖</li>
+      </ul>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">DAY 2</div>
+      <div class="day-area">【四條河原町區】</div>
+      <div class="day-image" style="background-image:url('images/day2.png')"></div>
+      <div class="day-theme">現代香氛與設計品牌</div>
+      <ul class="day-stores">
+        <li>lisn Kyoto</li>
+        <li>香彩堂（Kousaido）</li>
+        <li>Sanga Incense</li>
+      </ul>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">DAY 3</div>
+      <div class="day-area">【清水寺・二年坂】</div>
+      <div class="day-image" style="background-image:url('images/day3.png')"></div>
+      <div class="day-theme">坂道散策・特色香舖</div>
+      <ul class="day-stores">
+        <li>松榮堂 三年坂店</li>
+        <li>香十 二年坂店</li>
+        <li>二井三</li>
+      </ul>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">DAY 4</div>
+      <div class="day-area">【京都站周邊】</div>
+      <div class="day-image" style="background-image:url('images/day4.png')"></div>
+      <div class="day-theme">交通便利・伴手禮首選</div>
+      <ul class="day-stores">
+        <li>松榮堂 KUNGYO 京都站店</li>
+        <li>松榮堂 香吉 JR 京都伊勢丹店</li>
+      </ul>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">DAY 5</div>
+      <div class="day-area">【西本願寺區】</div>
+      <div class="day-image" style="background-image:url('images/day5.png')"></div>
+      <div class="day-theme">百年老舖・職人工藝</div>
+      <ul class="day-stores">
+        <li>薫玉堂</li>
+        <li>林龍昇堂</li>
+      </ul>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">DAY 6</div>
+      <div class="day-area">【祇園・東山區】</div>
+      <div class="day-image" style="background-image:url('images/day6.png')"></div>
+      <div class="day-theme">祇園散策・高級香舖</div>
+      <ul class="day-stores">
+        <li>祇園 二井三</li>
+        <li>尾張屋香舖</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- STORES -->
+<section id="stores">
+  <h2 class="section-title">京 都 香 名 店 館</h2>
+  <p class="section-sub">KYOTO INCENSE STORES</p>
+
+  <div class="stores-grid">
+
+    <a class="store-card" href="https://www.shoyeido.co.jp/" target="_blank" rel="noopener">
+      <div class="store-num">1</div>
+      <span class="store-day-tag">DAY 1</span>
+      <div class="store-name">松榮堂 京都本店</div>
+      <div class="store-name-en">Shoyeido Kyoto Honten</div>
+      <div class="store-desc">創業 1705 年，京都最具代表性的線香品牌，香品種類豐富。</div>
+      <div class="store-link">www.shoyeido.co.jp</div>
+    </a>
+
+    <a class="store-card" href="https://www.kyukyodo.co.jp/" target="_blank" rel="noopener">
+      <div class="store-num">2</div>
+      <span class="store-day-tag">DAY 1</span>
+      <div class="store-name">鳩居堂</div>
+      <div class="store-name-en">Kyukyodo</div>
+      <div class="store-desc">創業 1663 年，除了線香，還有和紙製品，香氣濃厚。</div>
+      <div class="store-link">www.kyukyodo.co.jp</div>
+    </a>
+
+    <a class="store-card" href="https://www.ishigurokoho.com/" target="_blank" rel="noopener">
+      <div class="store-num">3</div>
+      <span class="store-day-tag">DAY 1</span>
+      <div class="store-name">石黒香舖</div>
+      <div class="store-name-en">Ishiguro Kobo</div>
+      <div class="store-desc">在地職人香舖，堅持傳統手工製香。</div>
+      <div class="store-link">www.ishiguro-kouho.com</div>
+    </a>
+
+    <a class="store-card" href="https://www.lisn.co.jp/" target="_blank" rel="noopener">
+      <div class="store-num">4</div>
+      <span class="store-day-tag">DAY 2</span>
+      <div class="store-name">lisn Kyoto</div>
+      <div class="store-name-en">lisn Kyoto</div>
+      <div class="store-desc">現代設計感的線香品牌，深受年輕人喜愛。</div>
+      <div class="store-link">www.lisn.co.jp</div>
+    </a>
+
+    <a class="store-card" href="https://www.kousaido-ec.jp/" target="_blank" rel="noopener">
+      <div class="store-num">5</div>
+      <span class="store-day-tag">DAY 2</span>
+      <div class="store-name">香彩堂</div>
+      <div class="store-name-en">Kousaido</div>
+      <div class="store-desc">結合傳統與現代美學的京都線香品牌。</div>
+      <div class="store-link">www.kousaido-ec.jp</div>
+    </a>
+
+    <a class="store-card" href="https://www.instagram.com/sanga.incense/" target="_blank" rel="noopener">
+      <div class="store-num">6</div>
+      <span class="store-day-tag">DAY 2</span>
+      <div class="store-name">Sanga Incense</div>
+      <div class="store-name-en">Sanga Incense</div>
+      <div class="store-desc">新世代小眾香品牌，風格獨特。</div>
+      <div class="store-link">instagram.com/sanga.incense</div>
+    </a>
+
+    <a class="store-card" href="https://www.shoyeido.co.jp/" target="_blank" rel="noopener">
+      <div class="store-num">7</div>
+      <span class="store-day-tag">DAY 3</span>
+      <div class="store-name">松榮堂 三年坂店</div>
+      <div class="store-name-en">Shoyeido Sannenzaka</div>
+      <div class="store-desc">位於清水寺周邊，觀光客必訪的香舖分店。</div>
+      <div class="store-link">www.shoyeido.co.jp</div>
+    </a>
+
+    <a class="store-card" href="https://www.koju.co.jp/" target="_blank" rel="noopener">
+      <div class="store-num">8</div>
+      <span class="store-day-tag">DAY 3</span>
+      <div class="store-name">香十 二年坂店</div>
+      <div class="store-name-en">Koju</div>
+      <div class="store-desc">精品感香舖，包裝精美，香氣優雅。</div>
+      <div class="store-link">www.koju.co.jp</div>
+    </a>
+
+    <a class="store-card" href="https://www.kou-niimi.com/" target="_blank" rel="noopener">
+      <div class="store-num">9</div>
+      <span class="store-day-tag">DAY 3</span>
+      <div class="store-name">二井三</div>
+      <div class="store-name-en">Niimi</div>
+      <div class="store-desc">清水寺周邊知名香店，氣氛寧靜雅致。</div>
+      <div class="store-link">www.kou-niimi.com</div>
+    </a>
+
+    <a class="store-card" href="https://www.shoyeido.co.jp/" target="_blank" rel="noopener">
+      <div class="store-num">10</div>
+      <span class="store-day-tag">DAY 4</span>
+      <div class="store-name">松榮堂 KUNGYO 京都站店</div>
+      <div class="store-name-en">Shoyeido KUNGYO Kyoto Station</div>
+      <div class="store-desc">京都站內最方便的線香購買地點。</div>
+      <div class="store-link">www.shoyeido.co.jp</div>
+    </a>
+
+    <a class="store-card" href="https://wa-kanon.jp/" target="_blank" rel="noopener">
+      <div class="store-num">11</div>
+      <span class="store-day-tag">DAY 4</span>
+      <div class="store-name">松榮堂 香吉 JR 京都伊勢丹店</div>
+      <div class="store-name-en">Wa-kanon</div>
+      <div class="store-desc">百貨內高級線香專櫃。</div>
+      <div class="store-link">wa-kanon.jp</div>
+    </a>
+
+    <a class="store-card" href="https://www.kungyokudo.co.jp/" target="_blank" rel="noopener">
+      <div class="store-num">12</div>
+      <span class="store-day-tag">DAY 5</span>
+      <div class="store-name">薫玉堂</div>
+      <div class="store-name-en">Kungyokudo</div>
+      <div class="store-desc">創業 1594 年，日本最古老的香舖之一。</div>
+      <div class="store-link">www.kungyokudo.co.jp</div>
+    </a>
+
+    <a class="store-card" href="https://hayashi-ryushodo.com/" target="_blank" rel="noopener">
+      <div class="store-num">13</div>
+      <span class="store-day-tag">DAY 5</span>
+      <div class="store-name">林龍昇堂</div>
+      <div class="store-name-en">Hayashi Ryushodo</div>
+      <div class="store-desc">職人風傳統香店、香品研究。</div>
+      <div class="store-link">hayashi-ryushodo.com</div>
+    </a>
+
+    <a class="store-card" href="https://www.gion-niimi.com/" target="_blank" rel="noopener">
+      <div class="store-num">14</div>
+      <span class="store-day-tag">DAY 6</span>
+      <div class="store-name">祇園 二井三</div>
+      <div class="store-name-en">Gion Niimi</div>
+      <div class="store-desc">祇園高雅線香店，包裝典雅。</div>
+      <div class="store-link">www.gion-niimi.com</div>
+    </a>
+
+    <a class="store-card" href="https://www.google.com/search?q=%E5%B0%BE%E5%BC%B5%E5%B1%8B%E9%A6%99%E8%88%96+%E4%BA%AC%E9%83%BD" target="_blank" rel="noopener">
+      <div class="store-num">15</div>
+      <span class="store-day-tag">DAY 6</span>
+      <div class="store-name">尾張屋香舖</div>
+      <div class="store-name-en">Owariya Koho</div>
+      <div class="store-desc">職人風線香店，香品種類細緻。</div>
+      <div class="store-link">查看更多資訊</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- POSTER -->
+<section class="poster-section" id="poster">
+  <h2 class="section-title">原 始 行 程 圖</h2>
+  <p class="section-sub">ORIGINAL POSTER</p>
+  <div class="poster-frame">
+    <img src="poster.png" alt="京都線香之旅 原始行程圖">
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="seal">香</div>
+  <p>京 都 線 香 之 旅</p>
+  <p style="margin-top:10px;font-size:11px;opacity:.7;letter-spacing:.3em">A JOURNEY THROUGH KYOTO'S INCENSE CULTURE</p>
+</footer>
+
+</body>
+</html>
