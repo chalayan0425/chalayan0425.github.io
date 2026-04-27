@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>松榮堂 SHOYEIDO NIGHT CLUB｜今晚，不打坐，只打拍。</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Cormorant+Garamond:wght@300;400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070409;
+    --bg-2:#100819;
+    --gold:#d4af37;
+    --gold-2:#c9a961;
+    --purple:#c084fc;
+    --magenta:#e879f9;
+    --neon:#ff4dd2;
+    --line:rgba(212,175,55,.25);
+    --soft:rgba(255,255,255,.65);
+    --serif:'Noto Serif TC','Cormorant Garamond',serif;
+    --display:'Bebas Neue','Noto Serif TC',serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:#eee;font-family:var(--serif);scroll-behavior:smooth;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:0;background:transparent;color:inherit}
+
+  /* ============ NAV ============ */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 40px;
+    background:linear-gradient(180deg,rgba(7,4,9,.92),rgba(7,4,9,.55) 80%,transparent);
+    backdrop-filter:blur(8px);
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);}
+  .logo .mark{width:32px;height:32px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #ffe6a8, var(--gold) 60%, #6a4a10);
+    display:grid;place-items:center;font-weight:900;color:#3a230a;font-size:14px;}
+  .logo .name{letter-spacing:6px;font-weight:600;color:var(--gold)}
+  .logo .sub{letter-spacing:3px;font-size:10px;color:var(--soft)}
+  .nav ul{display:flex;gap:24px;list-style:none}
+  .nav ul a{font-size:13px;letter-spacing:3px;color:#e6e6e6;opacity:.85;transition:.2s}
+  .nav ul a:hover{color:var(--gold);opacity:1}
+  .nav .tickets{
+    border:1px solid var(--gold);padding:10px 22px;letter-spacing:3px;font-size:12px;
+    color:var(--gold);transition:.3s;
+  }
+  .nav .tickets:hover{background:var(--gold);color:#1a0d00}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;min-height:100vh;
+    overflow:hidden;
+    display:grid;align-items:center;
+    padding:140px 60px 120px;
+  }
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;filter:saturate(1.1) brightness(.65)}
+  .hero-bg::after{content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(7,4,9,.4) 0%, rgba(7,4,9,.15) 35%, rgba(7,4,9,.85) 100%),
+      radial-gradient(ellipse at 70% 50%, rgba(232,121,249,.18), transparent 60%);
+  }
+  .hero-inner{position:relative;z-index:5;max-width:1280px;margin:0 auto;width:100%}
+  .hero-left{max-width:640px}
+  .hero-left .pretag{display:inline-block;color:var(--gold);letter-spacing:8px;font-size:12px;
+    border:1px solid var(--gold);padding:8px 16px;margin-bottom:24px;
+    background:rgba(7,4,9,.35);backdrop-filter:blur(6px)}
+  .hero-left h1{
+    font-family:var(--display);font-size:clamp(64px,8vw,128px);letter-spacing:6px;
+    line-height:.95;
+    background:linear-gradient(180deg,#fff,#ffd98a 50%,#7a5a14);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    text-shadow:0 0 30px rgba(212,175,55,.15);
+  }
+  .hero-left h1 span{display:block}
+  .hero-tag{margin-top:22px;font-size:clamp(26px,3vw,40px);letter-spacing:8px;color:#fff;font-weight:300;
+    text-shadow:0 0 24px rgba(0,0,0,.6)}
+  .hero-tag em{color:var(--magenta);font-style:normal;text-shadow:0 0 16px var(--magenta)}
+  .hero-desc{margin-top:26px;color:#eee;line-height:2;letter-spacing:2px;font-size:14px;max-width:520px;
+    text-shadow:0 0 12px rgba(0,0,0,.7)}
+  .hero-cta-row{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap}
+  .hero-cta{display:inline-flex;align-items:center;gap:14px;
+    padding:16px 34px;letter-spacing:6px;transition:.3s;font-size:13px;}
+  .hero-cta.primary{background:linear-gradient(90deg,#d4af37,#fff5d6 50%,#d4af37);
+    background-size:200% 100%;color:#0a0510;font-weight:700;}
+  .hero-cta.primary:hover{background-position:100% 0;letter-spacing:8px}
+  .hero-cta.ghost{border:1px solid rgba(255,255,255,.4);color:#fff;backdrop-filter:blur(8px);
+    background:rgba(7,4,9,.3)}
+  .hero-cta.ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+  /* mini gallery in hero */
+  .hero-mini{position:absolute;right:60px;bottom:60px;display:flex;gap:12px;z-index:5}
+  .hero-mini .m-card{width:120px;height:160px;overflow:hidden;border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 10px 30px rgba(0,0,0,.5);transition:.4s;cursor:pointer}
+  .hero-mini .m-card img{width:100%;height:100%;object-fit:cover;transition:.6s}
+  .hero-mini .m-card:hover{transform:translateY(-8px);border-color:var(--gold)}
+  .hero-mini .m-card:hover img{transform:scale(1.1)}
+
+  /* ============ EVENT BAR ============ */
+  .event-bar{
+    max-width:1280px;margin:-40px auto 0;position:relative;z-index:10;
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;
+    border:1px solid var(--line);background:rgba(10,6,18,.92);backdrop-filter:blur(10px);
+  }
+  .event-bar .cell{padding:22px 28px;display:flex;align-items:center;gap:16px;border-right:1px solid var(--line)}
+  .event-bar .cell:last-child{border-right:0}
+  .event-bar .ico{width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);
+    display:grid;place-items:center;color:var(--gold);font-size:18px;flex:none}
+  .event-bar .lbl{color:var(--soft);font-size:11px;letter-spacing:3px}
+  .event-bar .val{color:#fff;font-size:14px;letter-spacing:2px;margin-top:4px;line-height:1.5}
+
+  /* ============ STORY INTRO ============ */
+  .story{max-width:1280px;margin:120px auto;padding:0 40px;
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;align-items:center}
+  .story-img{aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line);position:relative}
+  .story-img img{width:100%;height:100%;object-fit:cover;transition:.8s}
+  .story-img:hover img{transform:scale(1.05)}
+  .story-img .ovl{position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 50%, rgba(7,4,9,.85));
+    display:flex;align-items:flex-end;padding:20px;color:#fff;letter-spacing:4px;font-size:13px}
+  .story-mid{text-align:center;padding:0 10px}
+  .story-mid .num{font-family:var(--display);font-size:74px;color:var(--magenta);letter-spacing:6px;
+    text-shadow:0 0 20px rgba(232,121,249,.5)}
+  .story-mid h2{font-size:34px;letter-spacing:8px;margin-top:8px;
+    background:linear-gradient(90deg,#fff5d6,#d4af37);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .story-mid p{color:var(--soft);line-height:2;letter-spacing:2px;font-size:13px;margin-top:18px}
+  .story-mid .arrow{margin-top:28px;font-size:30px;color:var(--gold)}
+
+  /* ============ RESERVATION ============ */
+  .reserve-section{position:relative;padding:120px 40px;overflow:hidden}
+  .reserve-section::before{content:"";position:absolute;inset:0;
+    background-image:url('圖庫/8878a5e1-458c-4a9a-8d00-e4f0cc6f6ba2.png');
+    background-size:cover;background-position:center;
+    opacity:.18;filter:blur(2px) saturate(1.2)}
+  .reserve-section::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(7,4,9,.85),rgba(7,4,9,.95))}
+
+  .reserve-wrap{max-width:1280px;margin:0 auto;position:relative;z-index:5;
+    display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:stretch;}
+  .reserve-left{padding:30px 0}
+  .reserve-tag{color:var(--gold);letter-spacing:6px;font-size:12px}
+  .reserve-left h2{font-family:var(--serif);font-size:56px;letter-spacing:6px;line-height:1.1;
+    background:linear-gradient(90deg,#fff5d6,#d4af37);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    margin:18px 0 8px}
+  .reserve-left h3{font-family:var(--display);letter-spacing:6px;color:#fff;font-size:24px;font-weight:400}
+  .reserve-left p{color:var(--soft);line-height:2;letter-spacing:2px;font-size:14px;margin-top:22px;max-width:520px}
+
+  .reserve-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px;max-width:520px}
+  .stat-card{border:1px solid var(--line);padding:18px;background:rgba(255,255,255,.03);backdrop-filter:blur(4px)}
+  .stat-num{font-family:var(--display);font-size:36px;color:var(--magenta);letter-spacing:2px;
+    text-shadow:0 0 12px rgba(232,121,249,.6)}
+  .stat-lbl{color:var(--soft);font-size:11px;letter-spacing:3px;margin-top:4px}
+
+  /* small picture preview in reservation */
+  .reserve-pic{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:520px}
+  .reserve-pic .rp{aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);position:relative}
+  .reserve-pic .rp img{width:100%;height:100%;object-fit:cover;transition:.6s}
+  .reserve-pic .rp:hover img{transform:scale(1.08)}
+  .reserve-pic .rp .lbl{position:absolute;left:10px;bottom:10px;color:#fff;font-size:11px;letter-spacing:3px;
+    text-shadow:0 0 8px #000}
+
+  /* booking card */
+  .booking{
+    background:linear-gradient(160deg,rgba(28,16,46,.92),rgba(15,8,24,.97));
+    border:1px solid rgba(232,121,249,.3);
+    box-shadow:0 0 60px rgba(192,132,252,.18),inset 0 0 60px rgba(232,121,249,.06);
+    padding:34px;position:relative;overflow:hidden;backdrop-filter:blur(8px);
+  }
+  .booking::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at 100% 0%, rgba(232,121,249,.25), transparent 50%);
+    pointer-events:none}
+  .booking h3{
+    font-family:var(--display);letter-spacing:6px;font-size:22px;color:#fff;
+    border-bottom:1px solid var(--line);padding-bottom:18px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .booking h3 .pill{font-family:var(--serif);font-size:12px;letter-spacing:3px;
+    color:#0a0510;background:var(--gold);padding:4px 12px;border-radius:20px;font-weight:600}
+
+  .field{margin-top:22px}
+  .field-lbl{display:flex;justify-content:space-between;align-items:center;
+    color:var(--soft);font-size:12px;letter-spacing:3px;margin-bottom:10px}
+  .field-lbl span:last-child{color:var(--magenta)}
+
+  .date-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:8px}
+  .date-grid .dh{font-size:10px;color:var(--soft);text-align:center;letter-spacing:2px;padding:4px 0}
+  .date-cell{
+    aspect-ratio:1/1;display:grid;place-items:center;font-family:var(--display);font-size:14px;
+    border:1px solid rgba(255,255,255,.08);color:#fff;letter-spacing:1px;
+    transition:.2s;position:relative;background:rgba(255,255,255,.02);cursor:pointer
+  }
+  .date-cell:hover{border-color:var(--gold);color:var(--gold)}
+  .date-cell.muted{color:rgba(255,255,255,.18);pointer-events:none}
+  .date-cell.event::after{content:"";position:absolute;bottom:4px;left:50%;transform:translateX(-50%);
+    width:4px;height:4px;border-radius:50%;background:var(--magenta);
+    box-shadow:0 0 6px var(--magenta)}
+  .date-cell.active{
+    background:linear-gradient(135deg,#e879f9,#c084fc);
+    color:#0a0510;border-color:transparent;font-weight:700;
+    box-shadow:0 0 20px rgba(232,121,249,.5)
+  }
+  .date-cell.full{color:rgba(255,255,255,.3);text-decoration:line-through;pointer-events:none}
+
+  .month-nav{display:flex;justify-content:space-between;align-items:center;margin:8px 0 14px}
+  .month-nav button{color:var(--gold);font-size:18px;padding:4px 10px;border:1px solid var(--line);transition:.2s}
+  .month-nav button:hover{background:var(--gold);color:#0a0510}
+  .month-nav .month-name{font-family:var(--display);letter-spacing:6px;font-size:18px;color:#fff}
+
+  .qty-row{display:flex;align-items:center;justify-content:space-between;
+    border:1px solid var(--line);background:rgba(255,255,255,.02);padding:14px 18px}
+  .qty-btn{width:34px;height:34px;border:1px solid var(--gold);color:var(--gold);
+    font-size:18px;display:grid;place-items:center;transition:.2s}
+  .qty-btn:hover{background:var(--gold);color:#0a0510}
+  .qty-num{font-family:var(--display);font-size:30px;color:#fff;letter-spacing:2px;min-width:90px;text-align:center}
+  .qty-hint{font-size:11px;color:var(--soft);margin-top:8px;letter-spacing:2px;text-align:right}
+
+  .live-attendees{
+    margin-top:22px;padding:16px 20px;
+    border:1px dashed rgba(232,121,249,.4);
+    background:linear-gradient(90deg,rgba(232,121,249,.08),rgba(192,132,252,.05));
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .live-attendees .lbl-row{display:flex;align-items:center;gap:10px}
+  .live-attendees .pulse{width:8px;height:8px;border-radius:50%;background:#39ff7c;
+    box-shadow:0 0 8px #39ff7c;animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:1;transform:scale(1.2)}}
+  .live-attendees .lbl{color:#fff;font-size:13px;letter-spacing:2px}
+  .live-attendees .num{font-family:var(--display);font-size:28px;color:var(--magenta);letter-spacing:2px;
+    text-shadow:0 0 12px rgba(232,121,249,.6)}
+
+  .progress{margin-top:14px}
+  .progress-bar{height:6px;background:rgba(255,255,255,.06);position:relative;overflow:hidden}
+  .progress-fill{position:absolute;inset:0 auto 0 0;
+    background:linear-gradient(90deg,#c084fc,#e879f9,#ff4dd2);transition:width .6s ease;
+    box-shadow:0 0 10px rgba(232,121,249,.5)}
+  .progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--soft);
+    letter-spacing:2px;margin-top:6px}
+
+  .total-row{display:flex;justify-content:space-between;align-items:center;
+    margin-top:24px;padding-top:18px;border-top:1px solid var(--line)}
+  .total-row .lbl{color:var(--soft);font-size:12px;letter-spacing:3px}
+  .total-row .val{font-family:var(--display);color:var(--gold);font-size:32px;letter-spacing:2px}
+
+  .submit{
+    margin-top:18px;width:100%;padding:18px;letter-spacing:6px;font-size:14px;
+    background:linear-gradient(90deg,#d4af37,#fff5d6 50%,#d4af37);
+    color:#0a0510;font-weight:700;transition:.3s;
+    background-size:200% 100%;cursor:pointer
+  }
+  .submit:hover{background-position:100% 0;letter-spacing:8px}
+  .submit:disabled{background:#3a2c10;color:#7a6a44;cursor:not-allowed}
+
+  .booking-foot{margin-top:14px;color:var(--soft);font-size:11px;letter-spacing:2px;text-align:center;line-height:1.8}
+
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);
+    background:linear-gradient(90deg,#d4af37,#fff5d6,#d4af37);color:#0a0510;
+    padding:18px 36px;letter-spacing:4px;font-weight:600;
+    box-shadow:0 10px 40px rgba(212,175,55,.4);transition:.4s;z-index:200;opacity:0;text-align:center}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+  /* ============ SECTION HEADER ============ */
+  .section-head{max-width:1280px;margin:120px auto 40px;padding:0 40px;text-align:center}
+  .section-head .tag{color:var(--gold);letter-spacing:8px;font-size:12px}
+  .section-head h2{font-size:clamp(40px,5vw,60px);letter-spacing:10px;margin-top:14px;
+    background:linear-gradient(90deg,#fff5d6,#d4af37,#e879f9);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .section-head .en{color:#fff;letter-spacing:8px;font-family:var(--display);font-size:18px;margin-top:6px}
+  .section-head p{color:var(--soft);letter-spacing:3px;margin-top:14px;font-size:13px;max-width:680px;margin-left:auto;margin-right:auto;line-height:2}
+
+  /* ============ 5 SENSES ============ */
+  .senses{max-width:1280px;margin:0 auto;padding:0 40px;
+    display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .sense-card{
+    aspect-ratio:9/16;
+    position:relative;overflow:hidden;border:1px solid var(--line);
+    cursor:pointer;transition:.4s;
+  }
+  .sense-card img{width:100%;height:100%;object-fit:cover;transition:.6s;
+    filter:saturate(1.1) brightness(.7)}
+  .sense-card:hover{transform:translateY(-8px);border-color:var(--gold);
+    box-shadow:0 20px 50px rgba(232,121,249,.2)}
+  .sense-card:hover img{transform:scale(1.1);filter:saturate(1.3) brightness(.85)}
+  .sense-card .ovl{position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 35%, rgba(7,4,9,.4) 60%, rgba(7,4,9,.95) 100%);
+    display:flex;flex-direction:column;justify-content:flex-end;padding:18px}
+  .sense-card .sym{font-size:36px;color:var(--magenta);text-shadow:0 0 14px var(--magenta);font-weight:600}
+  .sense-card .ttl{font-size:22px;color:#fff;letter-spacing:6px;margin-top:8px;font-weight:600;
+    text-shadow:0 0 12px rgba(0,0,0,.8)}
+  .sense-card .sub{font-size:11px;color:#eee;letter-spacing:2px;line-height:1.7;margin-top:6px}
+  .sense-card .num{position:absolute;top:14px;right:14px;font-family:var(--display);
+    font-size:14px;letter-spacing:2px;color:var(--gold);
+    background:rgba(7,4,9,.6);padding:4px 10px;border:1px solid var(--gold);backdrop-filter:blur(6px)}
+
+  /* ============ FEATURE SECTION (large image + side info) ============ */
+  .feature{max-width:1280px;margin:120px auto;padding:0 40px;
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  .feature.reverse{grid-template-columns:1fr 1fr}
+  .feature.reverse .info{order:2}
+  .feature .stage{position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line)}
+  .feature .stage img{width:100%;height:100%;object-fit:cover;transition:.8s}
+  .feature .stage:hover img{transform:scale(1.05)}
+  .feature .stage::before,.feature .stage::after{content:"";position:absolute;width:50px;height:50px;
+    border:2px solid var(--gold);z-index:2;pointer-events:none}
+  .feature .stage::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+  .feature .stage::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+  .feature .info .tag{color:var(--gold);letter-spacing:6px;font-size:12px}
+  .feature .info h3{font-size:46px;letter-spacing:6px;line-height:1.2;margin-top:14px;
+    background:linear-gradient(90deg,#fff5d6,#d4af37);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .feature .info .en{font-family:var(--display);letter-spacing:6px;color:#fff;font-size:18px;margin-top:8px}
+  .feature .info p{color:var(--soft);line-height:2;letter-spacing:2px;font-size:14px;margin-top:24px;max-width:480px}
+  .feature .info .more{margin-top:30px;display:inline-flex;align-items:center;gap:10px;
+    border:1px solid var(--gold);padding:14px 28px;color:var(--gold);font-size:12px;letter-spacing:4px;transition:.3s;cursor:pointer}
+  .feature .info .more:hover{background:var(--gold);color:#0a0510;letter-spacing:6px}
+
+  .feature .info .mini-row{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:420px}
+  .feature .info .mini-row .m{aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);position:relative;cursor:pointer}
+  .feature .info .mini-row .m img{width:100%;height:100%;object-fit:cover;transition:.6s}
+  .feature .info .mini-row .m:hover img{transform:scale(1.1)}
+
+  /* ============ DRINKS ============ */
+  .drinks-section{max-width:1280px;margin:120px auto;padding:0 40px}
+  .drinks-hero{aspect-ratio:21/9;overflow:hidden;border:1px solid var(--line);position:relative;margin-bottom:24px}
+  .drinks-hero img{width:100%;height:100%;object-fit:cover;transition:.8s}
+  .drinks-hero:hover img{transform:scale(1.04)}
+  .drinks-hero .ovl{position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(7,4,9,.6),transparent 50%);
+    display:flex;align-items:center;padding:0 60px}
+  .drinks-hero .ovl h3{font-size:50px;letter-spacing:8px;color:#fff;
+    text-shadow:0 0 20px rgba(0,0,0,.8)}
+  .drinks-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .drink-card{
+    aspect-ratio:3/5;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(232,121,249,.3), transparent 60%),
+      linear-gradient(180deg,#1a0a2b,#0a0410);
+    border:1px solid var(--line);position:relative;overflow:hidden;
+    cursor:pointer;transition:.3s;
+  }
+  .drink-card img{width:100%;height:100%;object-fit:cover;
+    filter:saturate(1.2) brightness(.85);transition:.6s}
+  .drink-card:hover{transform:translateY(-8px);border-color:var(--gold)}
+  .drink-card:hover img{transform:scale(1.1) translateY(-4px)}
+  .drink-card .info{position:absolute;left:0;right:0;bottom:0;padding:14px;
+    background:linear-gradient(180deg,transparent,rgba(7,4,9,.95));text-align:center}
+  .drink-card .name{color:#fff;font-size:18px;letter-spacing:4px;font-weight:600}
+  .drink-card .en{color:var(--gold);font-size:11px;letter-spacing:4px;margin-top:4px;font-family:var(--display)}
+  .drink-card .price{color:var(--magenta);font-size:13px;letter-spacing:3px;margin-top:6px;font-family:var(--display)}
+
+  /* the 5 drinks crop different parts of the cocktail bar image */
+  .drink-card .crop{position:absolute;inset:0;width:500%;height:100%;
+    background-image:url('圖庫/466bf205-e960-4e37-b336-d198c6feafb1.png');
+    background-size:100% 100%;background-repeat:no-repeat;
+    filter:saturate(1.2) brightness(.9);transition:.6s
+  }
+  .drink-card.d1 .crop{background-position:0% 50%;background-size:500% 130%}
+  .drink-card.d2 .crop{background-position:25% 50%;background-size:500% 130%}
+  .drink-card.d3 .crop{background-position:50% 50%;background-size:500% 130%}
+  .drink-card.d4 .crop{background-position:75% 50%;background-size:500% 130%}
+  .drink-card.d5 .crop{background-position:100% 50%;background-size:500% 130%}
+  .drink-card:hover .crop{transform:scale(1.06)}
+
+  /* ============ GALLERY (clickable photo wall) ============ */
+  .gallery-section{padding:120px 40px;
+    background:linear-gradient(180deg,#070409,#0d0518 60%,#070409)}
+  .gallery-grid{max-width:1280px;margin:40px auto 0;
+    display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:120px;gap:10px}
+  .g-item{position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--line);transition:.3s}
+  .g-item img{width:100%;height:100%;object-fit:cover;transition:.6s}
+  .g-item:hover{border-color:var(--gold);z-index:2}
+  .g-item:hover img{transform:scale(1.08)}
+  .g-item::after{content:"+";position:absolute;top:8px;right:8px;width:24px;height:24px;
+    border:1px solid var(--gold);color:var(--gold);font-size:18px;
+    display:grid;place-items:center;background:rgba(7,4,9,.6);opacity:0;transition:.3s}
+  .g-item:hover::after{opacity:1}
+  .g-item.span2{grid-column:span 2}
+  .g-item.row2{grid-row:span 2}
+  .g-item.span3{grid-column:span 3}
+
+  /* lightbox */
+  .lightbox{position:fixed;inset:0;background:rgba(7,4,9,.95);z-index:300;
+    display:none;place-items:center;padding:40px;backdrop-filter:blur(10px)}
+  .lightbox.show{display:grid}
+  .lightbox img{max-width:90vw;max-height:85vh;border:1px solid var(--gold);
+    box-shadow:0 0 60px rgba(212,175,55,.3)}
+  .lightbox .close{position:absolute;top:30px;right:30px;width:40px;height:40px;
+    border:1px solid var(--gold);color:var(--gold);font-size:22px;
+    display:grid;place-items:center;background:rgba(7,4,9,.6);transition:.2s;cursor:pointer}
+  .lightbox .close:hover{background:var(--gold);color:#0a0510}
+  .lightbox .nav-l,.lightbox .nav-r{position:absolute;top:50%;transform:translateY(-50%);
+    width:50px;height:50px;border:1px solid var(--gold);color:var(--gold);font-size:24px;
+    display:grid;place-items:center;background:rgba(7,4,9,.6);cursor:pointer;transition:.2s}
+  .lightbox .nav-l{left:30px}.lightbox .nav-r{right:30px}
+  .lightbox .nav-l:hover,.lightbox .nav-r:hover{background:var(--gold);color:#0a0510}
+  .lightbox .caption{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+    color:#fff;letter-spacing:4px;font-size:13px;
+    background:rgba(7,4,9,.7);padding:10px 24px;border:1px solid var(--line)}
+
+  /* ============ MARQUEE BANNER ============ */
+  .marquee{padding:30px 0;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,#150728,#0a0410,#150728)}
+  .marquee-track{display:flex;gap:60px;animation:marq 40s linear infinite;white-space:nowrap}
+  .marquee-track span{font-family:var(--display);font-size:34px;letter-spacing:10px;color:var(--gold);
+    text-shadow:0 0 16px rgba(212,175,55,.4)}
+  .marquee-track span em{color:var(--magenta);font-style:normal;font-weight:600}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ============ FINAL CTA ============ */
+  .final{position:relative;padding:120px 40px;overflow:hidden;
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1280px;margin:0 auto}
+  .final-img{aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line);position:relative}
+  .final-img img{width:100%;height:100%;object-fit:cover}
+  .final-info .tag{color:var(--gold);letter-spacing:8px;font-size:12px}
+  .final-info h2{font-size:60px;letter-spacing:8px;margin-top:18px;line-height:1.2;
+    background:linear-gradient(90deg,#fff5d6,#d4af37,#e879f9);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .final-info p{color:var(--soft);line-height:2;letter-spacing:2px;font-size:14px;margin-top:24px;max-width:520px}
+  .final-info .cta{margin-top:34px;display:inline-flex;align-items:center;gap:14px;
+    padding:18px 40px;background:linear-gradient(90deg,#d4af37,#fff5d6,#d4af37);
+    background-size:200% 100%;color:#0a0510;letter-spacing:6px;font-weight:700;transition:.3s}
+  .final-info .cta:hover{background-position:100% 0;letter-spacing:8px}
+
+  /* ============ VIDEO IMMERSIVE ============ */
+  .video-section{
+    margin:80px 0 0;padding:80px 40px;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(192,132,252,.18),transparent 60%),
+      radial-gradient(ellipse at 80% 70%, rgba(232,121,249,.14),transparent 60%),
+      linear-gradient(180deg,#0a0410,#070409);
+    border-top:1px solid var(--line);
+  }
+  .video-section .vs-inner{max-width:1280px;margin:0 auto}
+  .vs-head{text-align:center;margin-bottom:40px}
+  .vs-head .tag{color:var(--gold);letter-spacing:8px;font-size:12px}
+  .vs-head h2{font-size:56px;letter-spacing:10px;margin-top:14px;
+    background:linear-gradient(90deg,#fff5d6,#d4af37,#e879f9);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .vs-head p{color:var(--soft);letter-spacing:3px;margin-top:14px;font-size:13px}
+
+  .video-frame{
+    position:relative;border:1px solid rgba(232,121,249,.3);
+    box-shadow:0 0 60px rgba(192,132,252,.18),inset 0 0 60px rgba(0,0,0,.6);
+    background:#000;overflow:hidden;
+  }
+  .video-frame::before,.video-frame::after{
+    content:"";position:absolute;width:60px;height:60px;border:2px solid var(--gold);z-index:3;pointer-events:none;
+  }
+  .video-frame::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+  .video-frame::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+  .video-frame video{width:100%;display:block;background:#000}
+  .video-overlay{position:absolute;inset:0;display:grid;place-items:center;
+    background:radial-gradient(ellipse at center, rgba(0,0,0,0), rgba(0,0,0,.55) 90%);
+    pointer-events:none;z-index:2}
+  .play-hint{
+    pointer-events:auto;
+    background:rgba(7,4,9,.6);border:1px solid var(--gold);color:var(--gold);
+    padding:18px 36px;letter-spacing:6px;font-size:13px;
+    backdrop-filter:blur(8px);transition:.3s;cursor:pointer
+  }
+  .play-hint:hover{background:var(--gold);color:#0a0510;letter-spacing:8px}
+  .video-foot{margin-top:30px;display:flex;justify-content:space-between;align-items:center;
+    color:var(--soft);font-size:12px;letter-spacing:3px}
+  .video-foot .cred{color:var(--gold)}
+
+  /* ============ FOOTER ============ */
+  footer{padding:40px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;max-width:1280px;margin:0 auto;flex-wrap:wrap;gap:20px}
+  footer .center{color:var(--soft);font-size:12px;letter-spacing:4px;text-align:center;flex:1;min-width:300px}
+  footer .socials{display:flex;gap:14px}
+  footer .socials a{width:34px;height:34px;border:1px solid var(--line);display:grid;place-items:center;
+    color:var(--gold);font-size:14px;transition:.2s}
+  footer .socials a:hover{background:var(--gold);color:#0a0510}
+
+  @media (max-width:1024px){
+    .nav{padding:14px 20px}
+    .nav ul{display:none}
+    .hero{padding:120px 24px 80px}
+    .hero-mini{display:none}
+    .event-bar{grid-template-columns:1fr;margin:0 20px}
+    .event-bar .cell{border-right:0;border-bottom:1px solid var(--line)}
+    .reserve-wrap,.story,.feature,.feature.reverse,.final{grid-template-columns:1fr;gap:30px}
+    .feature.reverse .info{order:0}
+    .senses,.drinks-grid{grid-template-columns:repeat(2,1fr)}
+    .gallery-grid{grid-template-columns:repeat(3,1fr)}
+    .g-item.span3{grid-column:span 3}
+    .reserve-section{padding:80px 20px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <div class="logo">
+    <div class="mark">松</div>
+    <div>
+      <div class="name">松榮堂</div>
+      <div class="sub">SHOYEIDO</div>
+    </div>
+  </div>
+  <ul>
+    <li><a href="#about">ABOUT</a></li>
+    <li><a href="#music">MUSIC</a></li>
+    <li><a href="#incense">INCENSE</a></li>
+    <li><a href="#food">FOOD</a></li>
+    <li><a href="#drink">DRINK</a></li>
+    <li><a href="#meditation">MEDITATION</a></li>
+    <li><a href="#gallery">GALLERY</a></li>
+    <li><a href="#video">VIDEO</a></li>
+  </ul>
+  <a href="#reserve" class="tickets">TICKETS</a>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="圖庫/e9ffa1d1-242a-4c1d-8b3c-053fdeeb12ef.png" alt="SHOYEIDO NIGHT CLUB">
+  </div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="pretag">— 百年香堂 · 首次失控</div>
+      <h1><span>SHOYEIDO</span><span>NIGHT CLUB</span></h1>
+      <div class="hero-tag">今晚，<em>不打坐</em>，只打拍 <em>。</em></div>
+      <p class="hero-desc">
+        一場結合感官與心靈的夜晚之旅<br>
+        讓壓力在香氣與音樂中釋放，回歸真正的自己<br>
+        2024.07.20 SAT｜22:00 — 04:00
+      </p>
+      <div class="hero-cta-row">
+        <a href="#reserve" class="hero-cta primary">立即購票 &nbsp;→</a>
+        <a href="#video" class="hero-cta ghost">▶ &nbsp;觀看預告</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-mini">
+    <div class="m-card" data-img="圖庫/b2b50ff1-7398-489e-8517-e6b04c0db5a6.png" data-cap="人潮 · 香氣失控">
+      <img src="圖庫/b2b50ff1-7398-489e-8517-e6b04c0db5a6.png" alt="">
+    </div>
+    <div class="m-card" data-img="圖庫/04a578ca-5925-4dc9-ad1f-85bfd643520c.png" data-cap="松榮堂 · 螢光棒">
+      <img src="圖庫/04a578ca-5925-4dc9-ad1f-85bfd643520c.png" alt="">
+    </div>
+    <div class="m-card" data-img="圖庫/db4fade0-c513-4499-9381-95208d313991-2.png" data-cap="夜晚 · 解放">
+      <img src="圖庫/db4fade0-c513-4499-9381-95208d313991-2.png" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- ============== EVENT BAR ============== -->
+<div class="event-bar">
+  <div class="cell">
+    <div class="ico">📅</div>
+    <div>
+      <div class="lbl">DATE / TIME</div>
+      <div class="val">2024.07.20 SAT.<br>22:00 — 04:00</div>
+    </div>
+  </div>
+  <div class="cell">
+    <div class="ico">📍</div>
+    <div>
+      <div class="lbl">VENUE</div>
+      <div class="val">松榮堂 NIGHT CLUB<br>台北市信義區松鼎路XX號</div>
+    </div>
+  </div>
+  <div class="cell">
+    <div class="ico">✦</div>
+    <div>
+      <div class="lbl">EXPERIENCE</div>
+      <div class="val">香氣 · 音樂 · 美食 · 禪心<br>五感沉浸式體驗</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== STORY (BEFORE → AFTER) ============== -->
+<section class="story">
+  <div class="story-img">
+    <img src="pic/1.png" alt="壓力">
+    <div class="ovl">BEFORE · 城市的疲憊</div>
+  </div>
+  <div class="story-mid">
+    <div class="num">01</div>
+    <h2>從壓力<br>到釋放</h2>
+    <p>白天扛著工作的重量<br>夜晚走進松榮堂<br>讓香氣與音樂把你淨化一遍</p>
+    <div class="arrow">↓</div>
+  </div>
+  <div class="story-img">
+    <img src="pic/10.png" alt="重生">
+    <div class="ovl">AFTER · 一夜重生</div>
+  </div>
+</section>
+
+<!-- ============== RESERVATION ============== -->
+<section class="reserve-section" id="reserve">
+  <div class="reserve-wrap">
+    <div class="reserve-left">
+      <div class="reserve-tag">— RESERVATION 即時預約</div>
+      <h2>夜の名單<br>限額入場</h2>
+      <h3>BOOK YOUR NIGHT</h3>
+      <p>
+        松榮堂 NIGHT CLUB 為私密空間限額體驗。<br>
+        請選擇日期與人數，我們將為你保留<br>
+        五感沉浸式儀式座位，並即時顯示當晚已預約人數。
+      </p>
+      <div class="reserve-stats">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-total">—</div>
+          <div class="stat-lbl">已預約 GUESTS</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-cap">200</div>
+          <div class="stat-lbl">當晚上限 CAP</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-left">—</div>
+          <div class="stat-lbl">尚餘席次 LEFT</div>
+        </div>
+      </div>
+      <div class="reserve-pic">
+        <div class="rp"><img src="圖庫/5ccbffa5-d682-4f30-934b-e0b0ada8ff61.png" alt=""><div class="lbl">入場 ENTRANCE</div></div>
+        <div class="rp"><img src="圖庫/5ab7cb7f-dc36-4094-b1cf-8f60c007c344-2.png" alt=""><div class="lbl">會員光棒</div></div>
+      </div>
+    </div>
+
+    <div class="booking">
+      <h3>RESERVE
+        <span class="pill" id="badge-status">OPEN</span>
+      </h3>
+
+      <div class="field">
+        <div class="field-lbl">
+          <span>選擇日期 — DATE</span>
+          <span id="picked-date">—</span>
+        </div>
+        <div class="month-nav">
+          <button id="prevMonth">‹</button>
+          <div class="month-name" id="monthName">JULY 2024</div>
+          <button id="nextMonth">›</button>
+        </div>
+        <div class="date-grid" id="dateGrid"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-lbl">
+          <span>入場人數 — GUESTS</span>
+          <span id="qty-info">最多 8 位</span>
+        </div>
+        <div class="qty-row">
+          <button class="qty-btn" id="qtyMinus">−</button>
+          <div class="qty-num" id="qtyNum">2</div>
+          <button class="qty-btn" id="qtyPlus">+</button>
+        </div>
+        <div class="qty-hint">每張票 NT$1,800・含一杯香氣特調</div>
+      </div>
+
+      <div class="live-attendees">
+        <div class="lbl-row">
+          <div class="pulse"></div>
+          <div class="lbl">當天已預約 LIVE</div>
+        </div>
+        <div class="num"><span id="live-num">—</span> 位</div>
+      </div>
+
+      <div class="progress">
+        <div class="progress-bar"><div class="progress-fill" id="bar"></div></div>
+        <div class="progress-meta">
+          <span id="bar-l">— / 200</span>
+          <span id="bar-r">—%</span>
+        </div>
+      </div>
+
+      <div class="total-row">
+        <div class="lbl">TOTAL 應付金額</div>
+        <div class="val">NT$ <span id="total">3,600</span></div>
+      </div>
+
+      <button class="submit" id="submitBtn">確認預約 &nbsp;CONFIRM RESERVATION</button>
+      <div class="booking-foot">
+        ✦ 名單成立後將寄送 QR Code 至 E-mail<br>
+        Dress code: All Black｜年齡限制 18+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 5 SENSES ============== -->
+<div class="section-head" id="about">
+  <div class="tag">— A-5 SENSES IMMERSIVE JOURNEY</div>
+  <h2>五感沉浸式體驗</h2>
+  <p>融合東方香道與現代電子音樂，透過香氣、音樂、美食與儀式<br>開啟一場身心解放的旅程</p>
+</div>
+
+<div class="senses">
+  <div class="sense-card" data-img="圖庫/ba2ef59b-3714-4d1d-adf5-2ca5688b17b8-2.png" data-cap="MUSIC · 佛經 MIX 電音">
+    <img src="圖庫/ba2ef59b-3714-4d1d-adf5-2ca5688b17b8-2.png" alt="MUSIC">
+    <div class="num">01</div>
+    <div class="ovl">
+      <div class="sym">♪</div>
+      <div class="ttl">音樂</div>
+      <div class="sub">佛經 MIX 電音 · 聲波共振</div>
+    </div>
+  </div>
+  <div class="sense-card" data-img="圖庫/2a410b29-66fc-44bc-a788-e44e08229838-2.png" data-cap="INCENSE · 繞香儀式">
+    <img src="圖庫/2a410b29-66fc-44bc-a788-e44e08229838-2.png" alt="INCENSE">
+    <div class="num">02</div>
+    <div class="ovl">
+      <div class="sym">≈</div>
+      <div class="ttl">香氣</div>
+      <div class="sub">繞香儀式氛圍 · 沉浸放鬆</div>
+    </div>
+  </div>
+  <div class="sense-card" data-img="圖庫/b1688742-3766-47e8-8eae-6a27f36c1a59-2.png" data-cap="FOOD · 香材入饌">
+    <img src="圖庫/b1688742-3766-47e8-8eae-6a27f36c1a59-2.png" alt="FOOD">
+    <div class="num">03</div>
+    <div class="ovl">
+      <div class="sym">◍</div>
+      <div class="ttl">美食</div>
+      <div class="sub">香材入饌料理 · 天然香氣食材</div>
+    </div>
+  </div>
+  <div class="sense-card" data-img="圖庫/466bf205-e960-4e37-b336-d198c6feafb1.png" data-cap="DRINK · 香氣特調">
+    <img src="圖庫/466bf205-e960-4e37-b336-d198c6feafb1.png" alt="DRINK">
+    <div class="num">04</div>
+    <div class="ovl">
+      <div class="sym">Y</div>
+      <div class="ttl">特調</div>
+      <div class="sub">香氣特調飲品 · 花木植物香氣</div>
+    </div>
+  </div>
+  <div class="sense-card" data-img="圖庫/344e6e23-fb03-4ab9-afe3-90fdb6f4201d.png" data-cap="MEDITATION · 頓缽靜心">
+    <img src="圖庫/344e6e23-fb03-4ab9-afe3-90fdb6f4201d.png" alt="MEDITATION">
+    <div class="num">05</div>
+    <div class="ovl">
+      <div class="sym">禪</div>
+      <div class="ttl">禪心</div>
+      <div class="sub">頓缽靜心打坐 · 回歸內在平靜</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== MUSIC FEATURE ============== -->
+<div class="section-head" id="music">
+  <div class="tag">— MUSIC JOURNEY</div>
+  <h2>佛經 MIX 電音</h2>
+  <p>當古老的智慧遇上現代的節奏，佛性的能量轉化為節拍<br>讓你在音浪中釋放所有壓力</p>
+</div>
+<section class="feature">
+  <div class="stage">
+    <img src="圖庫/ba2ef59b-3714-4d1d-adf5-2ca5688b17b8-2.png" alt="DJ">
+  </div>
+  <div class="info">
+    <div class="tag">— DJ SET</div>
+    <h3>百年香堂<br>首次失控</h3>
+    <div class="en">TRADITION BREAKS THE SLEEVE</div>
+    <p>
+      松榮堂駐場 DJ 將梵唄、頌缽與經文吟誦取樣<br>
+      混入 Deep House、Techno 與 Tribal Beat<br>
+      讓你聽見「經」如何成為夜的脈搏。
+    </p>
+    <div class="mini-row">
+      <div class="m" data-img="pic/4.png" data-cap="Female DJ Set"><img src="pic/4.png" alt=""></div>
+      <div class="m" data-img="圖庫/8878a5e1-458c-4a9a-8d00-e4f0cc6f6ba2.png" data-cap="Mainstage Crowd"><img src="圖庫/8878a5e1-458c-4a9a-8d00-e4f0cc6f6ba2.png" alt=""></div>
+    </div>
+    <a href="#" class="more">SET LIST &nbsp;→</a>
+  </div>
+</section>
+
+<!-- ============== INCENSE FEATURE ============== -->
+<div class="section-head" id="incense">
+  <div class="tag">— INCENSE CEREMONY</div>
+  <h2>香氣儀式 · 沉浸療癒</h2>
+  <p>工作人員手持線香，香氣調漫在空間中<br>讓每一次呼吸都成為療癒的儀式</p>
+</div>
+<section class="feature reverse">
+  <div class="info">
+    <div class="tag">— RITUAL</div>
+    <h3>百零八支線香<br>同時點燃</h3>
+    <div class="en">108 INCENSE STICKS LIT TOGETHER</div>
+    <p>
+      開場儀式：松榮堂職人於霓虹燈下手持火源<br>
+      一柱柱點燃百零八支線香<br>
+      代表清除一百零八種煩惱，<br>
+      讓整夜的能量場乾乾淨淨地展開。
+    </p>
+    <div class="mini-row">
+      <div class="m" data-img="pic/5.png" data-cap="香氣 · 點燃"><img src="pic/5.png" alt=""></div>
+      <div class="m" data-img="pic/3.png" data-cap="香堂 · 入場"><img src="pic/3.png" alt=""></div>
+    </div>
+    <a href="#" class="more">CEREMONY &nbsp;→</a>
+  </div>
+  <div class="stage">
+    <img src="圖庫/2a410b29-66fc-44bc-a788-e44e08229838-2.png" alt="Incense Lighting">
+  </div>
+</section>
+
+<!-- ============== FOOD FEATURE ============== -->
+<div class="section-head" id="food">
+  <div class="tag">— FOOD EXPERIENCE</div>
+  <h2>香材入饌 · 極致饗宴</h2>
+  <p>嚴選松榮堂特有香材入菜，結合在地天然食材<br>創造出獨一無二的味覺體驗</p>
+</div>
+<section class="feature">
+  <div class="stage">
+    <img src="圖庫/b1688742-3766-47e8-8eae-6a27f36c1a59-2.png" alt="Chef">
+  </div>
+  <div class="info">
+    <div class="tag">— SHOYEIDO KITCHEN</div>
+    <h3>主廚實驗室<br>香氣食驗</h3>
+    <div class="en">FOOD RESEARCH & SCENT EXPERIMENT</div>
+    <p>
+      主廚 KEN 以伽羅、白檀、沉香三種香材入菜<br>
+      研發出限定 5 道實驗料理：<br>
+      伽羅嫩煎和牛塔塔・白檀醃漬鮭魚卵壽司<br>
+      沉香慢燉骨髓 · 檀木煙燻甜點 · 香木分子湯
+    </p>
+    <div class="mini-row">
+      <div class="m" data-img="pic/6.png" data-cap="主廚精選 · 燭光晚宴"><img src="pic/6.png" alt=""></div>
+      <div class="m" data-img="pic/2.png" data-cap="松榮堂 · 海報"><img src="pic/2.png" alt=""></div>
+    </div>
+    <a href="#" class="more">FULL MENU &nbsp;→</a>
+  </div>
+</section>
+
+<!-- ============== MARQUEE ============== -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>百年香堂 · 首次失控 ✦ <em>松榮堂 NIGHT CLUB</em> ✦ 今晚，不打坐，只打拍。 ✦ 伽羅 RUSH ✦ 沉香 BASS ✦ 檀木 TRIP ✦ 白檀 DROP ✦ 香木 CLOUD ✦</span>
+    <span>百年香堂 · 首次失控 ✦ <em>松榮堂 NIGHT CLUB</em> ✦ 今晚，不打坐，只打拍。 ✦ 伽羅 RUSH ✦ 沉香 BASS ✦ 檀木 TRIP ✦ 白檀 DROP ✦ 香木 CLOUD ✦</span>
+  </div>
+</div>
+
+<!-- ============== DRINKS ============== -->
+<div class="section-head" id="drink">
+  <div class="tag">— DRINK CREATION</div>
+  <h2>香氣特調 · 創意風味</h2>
+  <p>以香材、花材、木質與天然食材調製，每一款都別具韻味<br>帶來身心靈的多層次享受</p>
+</div>
+<section class="drinks-section">
+  <div class="drinks-hero" data-img="圖庫/466bf205-e960-4e37-b336-d198c6feafb1.png" data-cap="SHOYEIDO SPECIALS · 5款香氣特調">
+    <img src="圖庫/466bf205-e960-4e37-b336-d198c6feafb1.png" alt="Cocktails">
+    <div class="ovl"><h3>SHOYEIDO<br>SPECIALS</h3></div>
+  </div>
+  <div class="drinks-grid">
+    <div class="drink-card d1" data-img="pic/7.png" data-cap="白檀 DROP · SANDALWOOD DROP">
+      <div class="crop"></div>
+      <div class="info">
+        <div class="name">白檀 DROP</div>
+        <div class="en">SANDALWOOD DROP</div>
+        <div class="price">NT$ 480</div>
+      </div>
+    </div>
+    <div class="drink-card d2" data-img="圖庫/466bf205-e960-4e37-b336-d198c6feafb1.png" data-cap="沉香 BASS · AGARWOOD BASS">
+      <div class="crop"></div>
+      <div class="info">
+        <div class="name">沉香 BASS</div>
+        <div class="en">AGARWOOD BASS</div>
+        <div class="price">NT$ 520</div>
+      </div>
+    </div>
+    <div class="drink-card d3" data-img="圖庫/466bf205-e960-4e37-b336-d198c6feafb1.png" data-cap="伽羅 RUSH · KYARA RUSH">
+      <div class="crop"></div>
+      <div class="info">
+        <div class="name">伽羅 RUSH</div>
+        <div class="en">KYARA RUSH</div>
+        <div class="price">NT$ 580</div>
+      </div>
+    </div>
+    <div class="drink-card d4" data-img="圖庫/466bf205-e960-4e37-b336-d198c6feafb1.png" data-cap="檀木 TRIP · WOODY TRIP">
+      <div class="crop"></div>
+      <div class="info">
+        <div class="name">檀木 TRIP</div>
+        <div class="en">WOODY TRIP</div>
+        <div class="price">NT$ 480</div>
+      </div>
+    </div>
+    <div class="drink-card d5" data-img="pic/7.png" data-cap="香木 CLOUD · INCENSE CLOUD">
+      <div class="crop"></div>
+      <div class="info">
+        <div class="name">香木 CLOUD</div>
+        <div class="en">INCENSE CLOUD</div>
+        <div class="price">NT$ 500</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MEDITATION FEATURE ============== -->
+<div class="section-head" id="meditation">
+  <div class="tag">— MEDITATION</div>
+  <h2>頓缽靜心 · 回歸平靜</h2>
+  <p>派對尾聲，DJ 播放頓缽靜心音樂，我們一起盤腿冥想<br>回歸平靜，找回真正的自己</p>
+</div>
+<section class="feature reverse">
+  <div class="info">
+    <div class="tag">— FINALE</div>
+    <h3>清晨四點<br>千人共修</h3>
+    <div class="en">DAWN MEDITATION FOR 1000</div>
+    <p>
+      凌晨 03:30，鼓聲漸停，DJ 換上頌缽冥想音樂<br>
+      所有人盤腿坐下，閉眼進入長達 30 分鐘的共修<br>
+      迎接清晨第一道光，你會感覺整個人被重新點亮。
+    </p>
+    <div class="mini-row">
+      <div class="m" data-img="圖庫/1726db4a-9ef2-463a-9cae-6801d8c41be8.png" data-cap="頌缽 · 千人共修"><img src="圖庫/1726db4a-9ef2-463a-9cae-6801d8c41be8.png" alt=""></div>
+      <div class="m" data-img="pic/9.png" data-cap="冥想 · 蠟燭"><img src="pic/9.png" alt=""></div>
+    </div>
+    <a href="#" class="more">SCHEDULE &nbsp;→</a>
+  </div>
+  <div class="stage">
+    <img src="圖庫/344e6e23-fb03-4ab9-afe3-90fdb6f4201d.png" alt="Meditation">
+  </div>
+</section>
+
+<!-- ============== GALLERY ============== -->
+<section class="gallery-section" id="gallery">
+  <div class="section-head" style="margin-top:0">
+    <div class="tag">— PHOTO GALLERY</div>
+    <h2>當夜實況 · GALLERY</h2>
+    <p>點擊任一張可放大瀏覽，每張都是真實夜晚的切片</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-item span2 row2" data-img="圖庫/b2b50ff1-7398-489e-8517-e6b04c0db5a6.png" data-cap="Mainstage · 今晚，不打坐，只打拍">
+      <img src="圖庫/b2b50ff1-7398-489e-8517-e6b04c0db5a6.png" alt="">
+    </div>
+    <div class="g-item" data-img="圖庫/04a578ca-5925-4dc9-ad1f-85bfd643520c.png" data-cap="閨蜜夜 · LIGHT STICK">
+      <img src="圖庫/04a578ca-5925-4dc9-ad1f-85bfd643520c.png" alt="">
+    </div>
+    <div class="g-item" data-img="圖庫/5ccbffa5-d682-4f30-934b-e0b0ada8ff61.png" data-cap="入場儀式">
+      <img src="圖庫/5ccbffa5-d682-4f30-934b-e0b0ada8ff61.png" alt="">
+    </div>
+    <div class="g-item span2" data-img="圖庫/db4fade0-c513-4499-9381-95208d313991-2.png" data-cap="解放 · 縱情">
+      <img src="圖庫/db4fade0-c513-4499-9381-95208d313991-2.png" alt="">
+    </div>
+    <div class="g-item" data-img="圖庫/fd21f83c-12ed-478f-a1b2-6d005d4eef25.png" data-cap="香木紋身舞者">
+      <img src="圖庫/fd21f83c-12ed-478f-a1b2-6d005d4eef25.png" alt="">
+    </div>
+    <div class="g-item" data-img="pic/8.png" data-cap="夜晚之舞">
+      <img src="pic/8.png" alt="">
+    </div>
+    <div class="g-item span2" data-img="圖庫/8878a5e1-458c-4a9a-8d00-e4f0cc6f6ba2.png" data-cap="Mainstage 全景">
+      <img src="圖庫/8878a5e1-458c-4a9a-8d00-e4f0cc6f6ba2.png" alt="">
+    </div>
+    <div class="g-item" data-img="圖庫/5ab7cb7f-dc36-4094-b1cf-8f60c007c344-2.png" data-cap="松榮堂光棒">
+      <img src="圖庫/5ab7cb7f-dc36-4094-b1cf-8f60c007c344-2.png" alt="">
+    </div>
+    <div class="g-item" data-img="pic/2.png" data-cap="入場海報">
+      <img src="pic/2.png" alt="">
+    </div>
+    <div class="g-item" data-img="pic/3.png" data-cap="入場 · 主舞台">
+      <img src="pic/3.png" alt="">
+    </div>
+    <div class="g-item" data-img="圖庫/1726db4a-9ef2-463a-9cae-6801d8c41be8.png" data-cap="頌缽冥想 · 千人共修">
+      <img src="圖庫/1726db4a-9ef2-463a-9cae-6801d8c41be8.png" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- ============== FINAL CTA ============== -->
+<section class="final">
+  <div class="final-img">
+    <img src="pic/10.png" alt="一夜重生">
+  </div>
+  <div class="final-info">
+    <div class="tag">— ONE NIGHT, REBORN</div>
+    <h2>一夜之旅<br>身心重生</h2>
+    <p>
+      走出夜店的每一刻<br>
+      你會感受到前所未有的釋放與舒暢<br>
+      壓力被釋放，心也被線香氣淨化了<br><br>
+      ✦ 限額 200 人｜剩餘席次即時更新中
+    </p>
+    <a href="#reserve" class="cta">立即預約 &nbsp;→</a>
+  </div>
+</section>
+
+<!-- ============== VIDEO ============== -->
+<section class="video-section" id="video">
+  <div class="vs-inner">
+    <div class="vs-head">
+      <div class="tag">— IMMERSIVE EXPERIENCE</div>
+      <h2>沉浸式體驗實錄</h2>
+      <p>SCROLL · WATCH · BREATHE — 走進松榮堂 NIGHT CLUB 的那一夜</p>
+    </div>
+    <div class="video-frame">
+      <video id="experienceVideo" controls preload="metadata" playsinline>
+        <source src="shoyeido-experience.mp4" type="video/mp4">
+        <source src="shoyeido-experience.mov" type="video/quicktime">
+        您的瀏覽器不支援此影片格式。
+      </video>
+      <div class="video-overlay" id="videoOverlay">
+        <button class="play-hint" id="playHint">▶ &nbsp;PLAY THE NIGHT</button>
+      </div>
+    </div>
+    <div class="video-foot">
+      <span>SHOYEIDO NIGHT CLUB · 2024.07.20</span>
+      <span class="cred">✦ 影片紀錄．松榮堂 ARCHIVE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="logo">
+    <div class="mark">松</div>
+    <div>
+      <div class="name">松榮堂</div>
+      <div class="sub">SHOYEIDO</div>
+    </div>
+  </div>
+  <div class="center">香 · 舞 · 食 · 禪 · 樂 &nbsp;&nbsp;&nbsp; 一場結合感官與心靈的夜晚之旅</div>
+  <div class="socials">
+    <a href="#">f</a><a href="#">◎</a><a href="#">▶</a>
+  </div>
+</footer>
+
+<!-- ============== TOAST ============== -->
+<div class="toast" id="toast">✦ 預約成功！我們已將 QR Code 寄送至您的信箱</div>
+
+<!-- ============== LIGHTBOX ============== -->
+<div class="lightbox" id="lightbox">
+  <button class="close" id="lbClose">×</button>
+  <button class="nav-l" id="lbPrev">‹</button>
+  <button class="nav-r" id="lbNext">›</button>
+  <img id="lbImg" src="" alt="">
+  <div class="caption" id="lbCap"></div>
+</div>
+
+<script>
+/* ====================== Reservation logic ====================== */
+const CAP = 200;
+const PRICE = 1800;
+
+const bookings = {
+  '2024-07-19': 84,
+  '2024-07-20': 156,
+  '2024-07-21': 42,
+  '2024-07-26': 67,
+  '2024-07-27': 110,
+  '2024-08-02': 38,
+  '2024-08-03': 92,
+  '2024-08-09': 73,
+  '2024-08-10': 128,
+  '2024-08-16': 55,
+  '2024-08-17': 145,
+};
+const isEventDay = (d) => {
+  const day = d.getDay();
+  return day === 5 || day === 6;
+};
+
+let viewYear = 2024, viewMonth = 6;
+let pickedDate = '2024-07-20';
+let qty = 2;
+
+const monthNames = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
+const dayHeaders = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+function fmt(d){
+  const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), dd=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${dd}`;
+}
+
+function renderCalendar(){
+  const grid = document.getElementById('dateGrid');
+  document.getElementById('monthName').textContent = `${monthNames[viewMonth]} ${viewYear}`;
+  grid.innerHTML = '';
+  dayHeaders.forEach(h => {
+    const el = document.createElement('div');
+    el.className='dh';el.textContent=h;
+    grid.appendChild(el);
+  });
+  const first = new Date(viewYear, viewMonth, 1);
+  const startOffset = first.getDay();
+  const daysInMonth = new Date(viewYear, viewMonth+1, 0).getDate();
+  for(let i=0;i<startOffset;i++){
+    const el=document.createElement('div');el.className='date-cell muted';el.textContent='';
+    grid.appendChild(el);
+  }
+  for(let d=1;d<=daysInMonth;d++){
+    const date = new Date(viewYear, viewMonth, d);
+    const key = fmt(date);
+    const el=document.createElement('div');
+    el.className='date-cell';
+    el.textContent=String(d).padStart(2,'0');
+    const isEvent = isEventDay(date);
+    const booked = bookings[key] || 0;
+    if(!isEvent){ el.classList.add('muted'); }
+    else { el.classList.add('event'); }
+    if(booked >= CAP){ el.classList.add('full'); }
+    if(key === pickedDate){ el.classList.add('active'); }
+    el.addEventListener('click', () => {
+      if(el.classList.contains('muted') || el.classList.contains('full')) return;
+      pickedDate = key;
+      renderCalendar();
+      updateUI();
+    });
+    grid.appendChild(el);
+  }
+}
+
+function updateUI(){
+  const booked = bookings[pickedDate] || 0;
+  const left = Math.max(CAP - booked, 0);
+  const pct  = Math.min(Math.round(booked/CAP*100), 100);
+
+  document.getElementById('picked-date').textContent = pickedDate;
+  document.getElementById('live-num').textContent = booked;
+  document.getElementById('stat-total').textContent = booked;
+  document.getElementById('stat-left').textContent = left;
+  document.getElementById('bar').style.width = pct + '%';
+  document.getElementById('bar-l').textContent = `${booked} / ${CAP}`;
+  document.getElementById('bar-r').textContent = pct + '%';
+  document.getElementById('qtyNum').textContent = qty;
+  document.getElementById('total').textContent = (qty*PRICE).toLocaleString();
+
+  const status = document.getElementById('badge-status');
+  const submit = document.getElementById('submitBtn');
+  if(left <= 0){
+    status.textContent='SOLD OUT';status.style.background='#ff4dd2';status.style.color='#fff';
+    submit.disabled=true;submit.textContent='✦ 當日已額滿 SOLD OUT';
+  } else if(left < 20){
+    status.textContent='ALMOST FULL';status.style.background='#ff8a3d';status.style.color='#1a0d00';
+    submit.disabled=false;submit.textContent='⚡ 即將額滿．確認預約';
+  } else {
+    status.textContent='OPEN';status.style.background='var(--gold)';status.style.color='#0a0510';
+    submit.disabled=false;submit.textContent='確認預約 ・ CONFIRM RESERVATION';
+  }
+  const cap = Math.min(8, left);
+  document.getElementById('qty-info').textContent = left>0 ? `最多 ${cap} 位` : '已售完';
+  if(qty > cap){ qty = Math.max(1, cap); document.getElementById('qtyNum').textContent = qty; document.getElementById('total').textContent=(qty*PRICE).toLocaleString();}
+}
+
+document.getElementById('prevMonth').addEventListener('click', () => {
+  viewMonth--;
+  if(viewMonth<0){viewMonth=11;viewYear--;}
+  renderCalendar();
+});
+document.getElementById('nextMonth').addEventListener('click', () => {
+  viewMonth++;
+  if(viewMonth>11){viewMonth=0;viewYear++;}
+  renderCalendar();
+});
+
+document.getElementById('qtyMinus').addEventListener('click', () => {
+  if(qty>1){qty--;updateUI();}
+});
+document.getElementById('qtyPlus').addEventListener('click', () => {
+  const left = Math.max(CAP - (bookings[pickedDate]||0), 0);
+  const cap = Math.min(8, left);
+  if(qty<cap){qty++;updateUI();}
+});
+
+document.getElementById('submitBtn').addEventListener('click', () => {
+  if(document.getElementById('submitBtn').disabled) return;
+  bookings[pickedDate] = (bookings[pickedDate]||0) + qty;
+  const t=document.getElementById('toast');
+  t.textContent = `✦ 預約成功！${pickedDate} ${qty} 位｜總計 NT$${(qty*PRICE).toLocaleString()}`;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3500);
+  renderCalendar();
+  updateUI();
+});
+
+renderCalendar();
+updateUI();
+
+/* ====================== Lightbox (gallery) ====================== */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCap = document.getElementById('lbCap');
+
+// collect every clickable image card
+const clickables = Array.from(document.querySelectorAll('[data-img]'));
+let lbIndex = 0;
+
+function openLB(i){
+  lbIndex = (i + clickables.length) % clickables.length;
+  const el = clickables[lbIndex];
+  lbImg.src = el.dataset.img;
+  lbCap.textContent = el.dataset.cap || '';
+  lb.classList.add('show');
+}
+function closeLB(){ lb.classList.remove('show'); }
+
+clickables.forEach((el, i) => {
+  el.addEventListener('click', () => openLB(i));
+});
+document.getElementById('lbClose').addEventListener('click', closeLB);
+document.getElementById('lbPrev').addEventListener('click', e => { e.stopPropagation(); openLB(lbIndex - 1); });
+document.getElementById('lbNext').addEventListener('click', e => { e.stopPropagation(); openLB(lbIndex + 1); });
+lb.addEventListener('click', (e) => { if(e.target === lb) closeLB(); });
+document.addEventListener('keydown', (e) => {
+  if(!lb.classList.contains('show')) return;
+  if(e.key === 'Escape') closeLB();
+  if(e.key === 'ArrowLeft') openLB(lbIndex - 1);
+  if(e.key === 'ArrowRight') openLB(lbIndex + 1);
+});
+
+/* ====================== Video overlay ====================== */
+const vid = document.getElementById('experienceVideo');
+const overlay = document.getElementById('videoOverlay');
+const playHint = document.getElementById('playHint');
+playHint.addEventListener('click', () => {
+  vid.play();
+  overlay.style.display = 'none';
+});
+vid.addEventListener('play', ()=> overlay.style.display='none');
+vid.addEventListener('pause', ()=> overlay.style.display='grid');
+</script>
+
+</body>
+</html>
