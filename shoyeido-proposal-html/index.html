@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#080609" />
+    <meta name="description" content="松榮堂 SHOYEIDO NIGHT CLUB 全螢幕提案簡報" />
+    <title>松榮堂 NIGHT CLUB｜全螢幕提案</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #080609;
+        --ink: #f8f2ea;
+        --muted: rgba(248, 242, 234, 0.66);
+        --line: rgba(248, 242, 234, 0.18);
+        --gold: #d7a85a;
+        --pink: #e3439b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          "Noto Sans TC",
+          "PingFang TC",
+          "Microsoft JhengHei",
+          system-ui,
+          sans-serif;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        content: "";
+        background:
+          radial-gradient(circle at 78% 12%, rgba(227, 67, 155, 0.24), transparent 34%),
+          radial-gradient(circle at 18% 86%, rgba(215, 168, 90, 0.12), transparent 32%),
+          linear-gradient(180deg, rgba(8, 6, 9, 0.2), rgba(8, 6, 9, 0.92));
+      }
+
+      .deck {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        width: 100vw;
+        height: 100svh;
+        place-items: center;
+        background: #050405;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        opacity: 0;
+        transform: translateX(4%);
+        transition:
+          opacity 360ms ease,
+          transform 360ms ease;
+        pointer-events: none;
+      }
+
+      .slide.is-active {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+      }
+
+      .slide img {
+        display: block;
+        width: 100vw;
+        height: 100svh;
+        object-fit: contain;
+        background: #050405;
+      }
+
+      .chrome {
+        position: fixed;
+        z-index: 5;
+        right: max(18px, env(safe-area-inset-right));
+        bottom: max(18px, env(safe-area-inset-bottom));
+        left: max(18px, env(safe-area-inset-left));
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 14px;
+        align-items: center;
+        opacity: 0.12;
+        transition: opacity 200ms ease;
+      }
+
+      body:hover .chrome,
+      .chrome:focus-within {
+        opacity: 1;
+      }
+
+      .counter,
+      .hint,
+      button {
+        border: 1px solid var(--line);
+        background: rgba(8, 6, 9, 0.7);
+        color: var(--ink);
+        backdrop-filter: blur(14px);
+      }
+
+      .counter {
+        min-width: 82px;
+        padding: 10px 12px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-align: center;
+      }
+
+      .hint {
+        min-width: 0;
+        padding: 10px 14px;
+        overflow: hidden;
+        color: var(--muted);
+        font-size: 13px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .controls {
+        display: flex;
+        gap: 8px;
+      }
+
+      button {
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        border-radius: 0;
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      button:hover,
+      button:focus-visible {
+        border-color: var(--pink);
+        outline: none;
+        color: var(--gold);
+      }
+
+      .progress {
+        position: fixed;
+        z-index: 6;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        background: rgba(248, 242, 234, 0.1);
+      }
+
+      .progress span {
+        display: block;
+        width: 0;
+        height: 100%;
+        background: linear-gradient(90deg, var(--gold), var(--pink));
+        transition: width 280ms ease;
+      }
+
+      .thumbs {
+        position: fixed;
+        z-index: 4;
+        top: max(14px, env(safe-area-inset-top));
+        left: max(14px, env(safe-area-inset-left));
+        display: flex;
+        max-width: min(72vw, 920px);
+        gap: 8px;
+        overflow: auto;
+        padding: 6px;
+        opacity: 0;
+        scrollbar-width: none;
+        transition: opacity 200ms ease;
+      }
+
+      body:hover .thumbs,
+      .thumbs:focus-within {
+        opacity: 1;
+      }
+
+      .thumbs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .thumb {
+        flex: 0 0 auto;
+        width: 68px;
+        height: 38px;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid rgba(248, 242, 234, 0.16);
+        background: #0d0a0d;
+      }
+
+      .thumb[aria-current="true"] {
+        border-color: var(--pink);
+        box-shadow: 0 0 0 1px rgba(227, 67, 155, 0.42);
+      }
+
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      @media (max-width: 720px) {
+        .chrome {
+          grid-template-columns: auto auto;
+        }
+
+        .hint {
+          display: none;
+        }
+
+        .thumbs {
+          max-width: calc(100vw - 28px);
+        }
+      }
+
+      @media (orientation: portrait) {
+        .deck {
+          background: radial-gradient(circle at 50% 38%, rgba(227, 67, 155, 0.12), transparent 38%), #050405;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="deck" aria-label="松榮堂 NIGHT CLUB 提案簡報">
+      <section class="slide is-active" aria-label="第 1 頁">
+        <img src="slides/slide-01.png" alt="松榮堂 NIGHT CLUB 封面" />
+      </section>
+      <section class="slide" aria-label="第 2 頁">
+        <img src="slides/slide-02.png" alt="品牌年輕化與體驗商品化" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 3 頁">
+        <img src="slides/slide-03.png" alt="市場感知圖與優越孤島區" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 4 頁">
+        <img src="slides/slide-04.png" alt="核心故事" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 5 頁">
+        <img src="slides/slide-05.png" alt="五段體驗架構" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 6 頁">
+        <img src="slides/slide-06.png" alt="三個會被記住的場景" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 7 頁">
+        <img src="slides/slide-07.png" alt="空間前置動線" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 8 頁">
+        <img src="slides/slide-08.png" alt="香與明火風險" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 9 頁">
+        <img src="slides/slide-09.png" alt="空氣噪音與身體感邊界" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 10 頁">
+        <img src="slides/slide-10.png" alt="風險與法規圖" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 11 頁">
+        <img src="slides/slide-11.png" alt="文化尊重" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 12 頁">
+        <img src="slides/slide-12.png" alt="收入設計" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 13 頁">
+        <img src="slides/slide-13.png" alt="溝通語氣" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 14 頁">
+        <img src="slides/slide-14.png" alt="前置作業時程" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 15 頁">
+        <img src="slides/slide-15.png" alt="下一步決策" loading="lazy" />
+      </section>
+      <section class="slide" aria-label="第 16 頁">
+        <img src="slides/slide-16.png" alt="結尾" loading="lazy" />
+      </section>
+    </main>
+
+    <nav class="thumbs" aria-label="投影片縮圖"></nav>
+
+    <div class="chrome" aria-label="簡報控制列">
+      <div class="counter" aria-live="polite"><span id="current">01</span> / <span id="total">16</span></div>
+      <div class="hint">使用鍵盤 ← / →、空白鍵，或左右滑動切換頁面</div>
+      <div class="controls">
+        <button id="prev" type="button" aria-label="上一頁">‹</button>
+        <button id="next" type="button" aria-label="下一頁">›</button>
+        <button id="fullscreen" type="button" aria-label="全螢幕">⛶</button>
+      </div>
+    </div>
+
+    <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+
+    <script>
+      const slides = [...document.querySelectorAll(".slide")];
+      const thumbs = document.querySelector(".thumbs");
+      const current = document.querySelector("#current");
+      const total = document.querySelector("#total");
+      const progress = document.querySelector("#progress");
+      const prev = document.querySelector("#prev");
+      const next = document.querySelector("#next");
+      const fullscreen = document.querySelector("#fullscreen");
+      let index = 0;
+      let startX = 0;
+
+      total.textContent = String(slides.length).padStart(2, "0");
+
+      slides.forEach((slide, i) => {
+        const button = document.createElement("button");
+        const img = document.createElement("img");
+        button.className = "thumb";
+        button.type = "button";
+        button.ariaLabel = `前往第 ${i + 1} 頁`;
+        img.src = slide.querySelector("img").src;
+        img.alt = "";
+        button.append(img);
+        button.addEventListener("click", () => go(i));
+        thumbs.append(button);
+      });
+
+      const thumbButtons = [...document.querySelectorAll(".thumb")];
+
+      function go(target) {
+        index = (target + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("is-active", i === index);
+          slide.setAttribute("aria-hidden", i === index ? "false" : "true");
+        });
+        thumbButtons.forEach((button, i) => {
+          button.setAttribute("aria-current", i === index ? "true" : "false");
+        });
+        current.textContent = String(index + 1).padStart(2, "0");
+        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+        history.replaceState(null, "", `#${index + 1}`);
+      }
+
+      prev.addEventListener("click", () => go(index - 1));
+      next.addEventListener("click", () => go(index + 1));
+      fullscreen.addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.();
+        } else {
+          document.exitFullscreen?.();
+        }
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+          event.preventDefault();
+          go(index + 1);
+        }
+        if (["ArrowLeft", "PageUp"].includes(event.key)) {
+          event.preventDefault();
+          go(index - 1);
+        }
+        if (event.key === "Home") go(0);
+        if (event.key === "End") go(slides.length - 1);
+      });
+
+      window.addEventListener("touchstart", (event) => {
+        startX = event.changedTouches[0].clientX;
+      }, { passive: true });
+
+      window.addEventListener("touchend", (event) => {
+        const delta = event.changedTouches[0].clientX - startX;
+        if (Math.abs(delta) > 44) go(index + (delta < 0 ? 1 : -1));
+      }, { passive: true });
+
+      const hashPage = Number.parseInt(location.hash.slice(1), 10);
+      go(Number.isFinite(hashPage) ? hashPage - 1 : 0);
+    </script>
+  </body>
+</html>
